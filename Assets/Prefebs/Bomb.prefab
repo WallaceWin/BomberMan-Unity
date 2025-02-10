@@ -102,7 +102,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -117,6 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7198782253003245635}
+  - component: {fileID: 7132486591729130083}
   - component: {fileID: 7404472063830862627}
   m_Layer: 0
   m_Name: Bomb
@@ -145,6 +146,31 @@ Transform:
   - {fileID: 2224505518331101289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7132486591729130083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4015287707960922110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3345970315
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &7404472063830862627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,9 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a10596de37b654cb8d45acbe9f7ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   cilindroVertical: {fileID: 7455443805971609371}
   cilindroHorizontal: {fileID: 8126422500014129959}
-  bomba: {fileID: 4015287707960922110}
 --- !u!1 &4208960654530994722
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +197,6 @@ GameObject:
   - component: {fileID: 7491644893751139106}
   - component: {fileID: 5811356901169988875}
   - component: {fileID: 1708881785478467057}
-  - component: {fileID: 7665186498358124056}
   m_Layer: 0
   m_Name: Pavil
   m_TagString: Untagged
@@ -247,29 +272,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7665186498358124056
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4208960654530994722}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7455443805971609371
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,9 +284,10 @@ GameObject:
   - component: {fileID: 1093094873785378606}
   - component: {fileID: 4207626457458653778}
   - component: {fileID: 881454479175923411}
+  - component: {fileID: 4617135232373542408}
   m_Layer: 0
   m_Name: Vertical
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,7 +302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 2, z: 0.8}
+  m_LocalScale: {x: 0.8, y: 1.5, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7198782253003245635}
@@ -377,9 +380,21 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
-  m_Height: 2
+  m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &4617135232373542408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455443805971609371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb5b9a8611be92418fb4ba96bf45ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8126422500014129959
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,9 +407,10 @@ GameObject:
   - component: {fileID: 7157611300115995256}
   - component: {fileID: 7042052754209355581}
   - component: {fileID: 3218353224585253699}
+  - component: {fileID: 5487090990355745403}
   m_Layer: 0
   m_Name: Horizontal
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,7 +425,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 2, z: 0.8}
+  m_LocalScale: {x: 0.8, y: 1.5, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7198782253003245635}
@@ -487,9 +503,21 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
-  m_Height: 2
+  m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &5487090990355745403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8126422500014129959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb5b9a8611be92418fb4ba96bf45ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8228208495410143871
 GameObject:
   m_ObjectHideFlags: 0

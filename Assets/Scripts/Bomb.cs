@@ -1,31 +1,65 @@
+using Unity.Netcode;
 using System.Collections;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : NetworkBehaviour
 {
     public GameObject cilindroVertical;
     public GameObject cilindroHorizontal;
 
-    //public GameObject bomba;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    private void Start()
     {
-        StartCoroutine(explodirBomba());
+        if (IsServer) 
+        {
+            StartCoroutine(ExplodirBomba());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator ExplodirBomba()
     {
         
+        yield return new WaitForSeconds(1f);
+
+        
+        ActivateExplosionServerRpc();
+
+       
+        yield return new WaitForSeconds(0.5f);
+
+       
+        DestroyBombServerRpc();
     }
 
-    IEnumerator explodirBomba()
+    [ServerRpc]
+    private void ActivateExplosionServerRpc()
     {
-        yield return new WaitForSeconds(1f);
-       // bomba.SetActive(false);
+        
         cilindroHorizontal.SetActive(true);
         cilindroVertical.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
+
+        
+        ActivateExplosionClientRpc();
+    }
+
+    [ClientRpc]
+    private void ActivateExplosionClientRpc()
+    {
+        // Ativa os cilindros da explosão nos clientes
+        cilindroHorizontal.SetActive(true);
+        cilindroVertical.SetActive(true);
+    }
+
+    [ServerRpc]
+    private void DestroyBombServerRpc()
+    {
+        Destroy(gameObject); // Destroi a bomba no servidor
+        DestroyBombClientRpc(); // Notifica os clientes para destruir a bomba
+    }
+
+    [ClientRpc]
+    private void DestroyBombClientRpc()
+    {
+        Destroy(gameObject); // Destroi a bomba nos clientes
     }
 }

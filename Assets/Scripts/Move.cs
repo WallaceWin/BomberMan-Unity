@@ -1,40 +1,39 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class Move : NetworkBehaviour
 {
-
     private Rigidbody rb;
     public float moveSpeed = 5f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (!IsOwner) return; 
+
         Vector3 movement = Vector3.zero;
 
-        // Verifica as teclas pressionadas
-        if (Input.GetKey(KeyCode.W)) // Move para frente
-        {
+        if (Input.GetKey(KeyCode.W))
             movement += Vector3.forward;
-        }
-        if (Input.GetKey(KeyCode.S)) // Move para trás
-        {
+        if (Input.GetKey(KeyCode.S))
             movement += Vector3.back;
-        }
-        if (Input.GetKey(KeyCode.A)) // Move para a esquerda
-        {
+        if (Input.GetKey(KeyCode.A))
             movement += Vector3.left;
-        }
-        if (Input.GetKey(KeyCode.D)) // Move para a direita
-        {
+        if (Input.GetKey(KeyCode.D))
             movement += Vector3.right;
-        }
 
-        // Aplica movimento ao Rigidbody
-        rb.MovePosition(transform.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        movement = movement.normalized * moveSpeed * Time.fixedDeltaTime;
+
+        MoveServerRpc(movement); 
+    }
+
+    [ServerRpc]
+    private void MoveServerRpc(Vector3 movement)
+    {
+        rb.MovePosition(transform.position + movement);
     }
 }

@@ -1,26 +1,27 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class BombController : MonoBehaviour
+public class BombController : NetworkBehaviour
 {
-    public GameObject bombaPrefeb;
-
+    public GameObject bombaPrefab;
     public GameObject bombaAtual = null;
     public GameObject player;
-    
-    public float raycastDistance = 2f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    public float raycastDistance = 2f;
+
     void Update()
     {
-        
-        if (Input.GetKeyUp(KeyCode.Space) && bombaAtual == null)
+        if (IsOwner && Input.GetKeyUp(KeyCode.Space) && bombaAtual == null)
         {
-            Instantiate(bombaPrefeb, player.transform.position, bombaPrefeb.transform.rotation);
+            
+            InstantiateBombServerRpc(player.transform.position, bombaPrefab.transform.rotation);
         }
+    }
+
+    [ServerRpc]
+    private void InstantiateBombServerRpc(Vector3 position, Quaternion rotation)
+    {
+        GameObject bomba = Instantiate(bombaPrefab, position, rotation);
+        bomba.GetComponent<NetworkObject>().Spawn(); 
     }
 }
